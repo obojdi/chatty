@@ -1,3 +1,63 @@
+*
+{
+border-radius: 0!important;
+}
 body{
-	background: green;
+	background: teal;
+	color: #fff;
+}
+
+h1
+{
+	text-align: center;
+}
+nav
+{
+	margin-bottom: 0;
+}
+
+.row .full-width,
+.full-width
+{
+	width: 100%;
+}
+.navbar-fixed-bottom
+{
+	background: #FFF;
+}
+.navbar-fixed-bottom .btn,
+.navbar-fixed-bottom textarea
+{
+height: 100%;
+}
+.navbar-fixed-bottom .row>div
+{
+height: 74px;
+}
+aside
+{
+	background: #FFF;
+	height: 100%;
+}
+.message
+{
+	padding: 5px;
+	background: rgba(0,0,0,0.2);
+}
+.timestamp
+{
+	float: right;
+}
+/*
+*/
+.modal
+{
+	width: 100%;
+	height: 100%;
+	z-index: 5000;
+	position: absolute;
+	background: #fff;
+	text-align: center;
+	color: #000;
+	top: 0;left: 0;	
 }

@@ -1,7 +1,11 @@
 {
   "devDependencies": {
+    "express": "^4.13.3",
     "gulp": "^3.8.11",
     "gulp-connect": "^2.2.0",
-    "opn": "^1.0.1"
-  }
+    "gulp-shell": "^0.5.1",
+    "opn": "^1.0.1",
+    "ws": "^0.8.1"
+  },
+  "dependencies": {}
 }

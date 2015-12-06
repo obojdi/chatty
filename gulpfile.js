@@ -1,6 +1,11 @@
 var gulp = require("gulp"),
-		connect = require("gulp-connect"),
-		opn = require("opn");
+  connect = require("gulp-connect"),
+  shell = require('gulp-shell'),
+  opn = require("opn");
+
+gulp.task('shorthand', shell.task([
+  'node server.js'
+]))
 
 // Запускаем локальный сервер
 gulp.task('connect', function() {
@@ -13,25 +18,25 @@ gulp.task('connect', function() {
 });
 
 // Работа с HTML
-gulp.task('html', function () {
+gulp.task('html', function() {
   gulp.src('./app/*.html')
     .pipe(connect.reload());
 });
 
 // Работа с CSS
-gulp.task('css', function () {
+gulp.task('css', function() {
   gulp.src('./app/css/*.css')
     .pipe(connect.reload());
 });
 
 // Работа с JS
-gulp.task('js', function () {
+gulp.task('js', function() {
   gulp.src('./app/js/*.js')
     .pipe(connect.reload());
 });
 
 // Слежка
-gulp.task('watch', function () {
+gulp.task('watch', function() {
   gulp.watch(['./app/*.html'], ['html']);
   gulp.watch(['./app/js/*.js'], ['js']);
   gulp.watch(['./app/css/*.css'], ['css']);
