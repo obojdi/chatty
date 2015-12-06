@@ -4,7 +4,7 @@ var gulp = require("gulp"),
   opn = require("opn");
 
 gulp.task('shorthand', shell.task([
-  'node server.js'
+  //'node server.js'
 ]))
 
 // Запускаем локальный сервер

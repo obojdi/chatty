@@ -1,7 +1,7 @@
 function $(a) {
 	return document.getElementById(a)
 }
-document.getElementsByClassName('navbar-brand')[0].innerHTML = 'horsecock chat'.toUpperCase()
+document.getElementsByClassName('navbar-brand')[0].innerHTML = 'chatty chat'.toUpperCase()
 
 
 // var WebSocket = require('ws');
@@ -36,7 +36,7 @@ ws.onmessage = function(event) {
 			}
 			break;
 		case 'message':
-			case 'log':
+		case 'log':
 
 			var date = new Date();
 
@@ -62,6 +62,23 @@ ws.onmessage = function(event) {
 			// + ' ' + timestamp;
 			$('chat').appendChild(msg)
 			break;
+		case 'userlist':
+			aside = document.getElementsByClassName('users')[0]
+			aside.innerHTML = '';
+			users = message.users
+			for (var a in users) {
+				var rnd = Math.floor(Math.random() * 10) + 100
+				var kitteh = document.createElement('img');
+				kitteh.src = 'http://placekitten.com/' + rnd + '/' + rnd
+				var user = document.createElement('span');
+				user.className = "user";
+				user.appendChild(kitteh)
+
+
+				user.innerHTML = user.innerHTML + users[a].login;
+				aside.appendChild(user)
+			}
+			break;
 	}
 	// ws.send(event.data)
 };
@@ -69,10 +86,10 @@ $('message').addEventListener('keypress', function(event) {
 	if (event.which == 13) {
 		// $('form').submit()
 		console.log(this.value)
-			ws.send(JSON.stringify({
-		type: 'message',
-		body: this.value
-	}));
+		ws.send(JSON.stringify({
+			type: 'message',
+			body: this.value
+		}));
 		this.value = ' '.trim()
 	}
 })

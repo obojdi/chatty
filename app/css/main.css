@@ -1,6 +1,6 @@
 *
 {
-border-radius: 0!important;
+/*border-radius: 0!important;*/
 }
 body{
 	background: teal;
@@ -36,8 +36,23 @@ height: 74px;
 }
 aside
 {
-	background: #FFF;
 	height: 100%;
+	color: #000;
+}
+aside .users
+{
+	background: rgba(255,255,255,0.8);
+	padding: 5px;
+}
+.user
+{
+	display: block;
+}
+.user img
+{
+	border-radius: 50%;
+	height: 30px;
+	width: 30px;
 }
 .message
 {
@@ -60,4 +75,9 @@ aside
 	text-align: center;
 	color: #000;
 	top: 0;left: 0;	
+}
+
+form
+{
+	margin-bottom: 0;
 }

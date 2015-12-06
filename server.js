@@ -59,7 +59,11 @@ wss.on('connection', function connection(ws) {
 						}));
 						ws.send(JSON.stringify({
 							type: 'log',
-							body: 'user' + user.login + ' connected'
+							body: 'user ' + user.login + ' connected'
+						}));
+						ws.send(JSON.stringify({
+							type: 'userlist',
+							users: users
 						}));
 						break;
 					} else {
