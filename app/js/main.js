@@ -4,7 +4,6 @@ function $(a) {
 document.getElementsByClassName('navbar-brand')[0].innerHTML = 'chatty chat'.toUpperCase()
 
 
-// var WebSocket = require('ws');
 var ws = new WebSocket('ws://localhost:4080');
 
 ws.onopen = function open() {
@@ -18,20 +17,20 @@ ws.onopen = function open() {
 
 ws.onmessage = function(event) {
 	console.log('message INCOMING')
-	response = document.getElementsByClassName('response')[0]
 	var message = JSON.parse(event.data)
 	console.log(message)
 	switch (message.type) {
 		case 'auth':
+			response = document.getElementsByClassName('response')[0]
 			if (message.result == false) {
 				if (message.reason == 'exists') {
 					response.innerHTML = 'user exists'
-				} else if (message.reason == 'wrong') {
-					response.innerHTML = 'wrong password'
-
+					$('auth').getElementsByTagName('input')[0].focus()
+					$('auth').getElementsByClassName('form-group')[0].classList.add('has-error')
 				}
 			} else if (message.result == true) {
 				document.getElementsByClassName('modal')[0].style.display = "none"
+				$('form').getElementsByTagName('textarea')[0].focus()
 
 			}
 			break;
@@ -59,15 +58,15 @@ ws.onmessage = function(event) {
 			msg.className = "message new-message";
 			msg.innerHTML = message.body;
 			msg.appendChild(timestamp);
-			// + ' ' + timestamp;
 			$('chat').appendChild(msg)
 			break;
 		case 'userlist':
 			aside = document.getElementsByClassName('users')[0]
 			aside.innerHTML = '';
-			// console.log('users')
-			// console.log(message)
 			users = message.users
+			console.log(users.length)
+			console.log('USERS')
+			console.log(users)
 			for (var a in users) {
 				var rnd = Math.floor(Math.random() * 10) + 100
 				var kitteh = document.createElement('img');
@@ -77,7 +76,7 @@ ws.onmessage = function(event) {
 				user.appendChild(kitteh)
 
 
-				user.innerHTML = user.innerHTML + users[a].login;
+				user.innerHTML = user.innerHTML + users[a].user.login;
 				aside.appendChild(user)
 			}
 			break;
@@ -88,7 +87,7 @@ ws.onmessage = function(event) {
 			console.log(message.list)
 			for (var a in message.list) {
 
-			console.log(a)
+				console.log(a)
 				console.log(message.list[a])
 
 
@@ -146,6 +145,7 @@ $('form').addEventListener('submit', function(event) {
 
 
 document.getElementsByClassName('modal')[0].style.display = "block"
+$('auth').getElementsByTagName('input')[0].focus()
 
 $('auth').addEventListener('submit', function(event) {
 	event.preventDefault()
