@@ -88,7 +88,7 @@ ws.onmessage = function(event) {
 			console.log(message.list)
 			for (var a in message.list) {
 
-			console.log(a)
+				console.log(a)
 				console.log(message.list[a])
 
 
@@ -121,7 +121,8 @@ ws.onmessage = function(event) {
 	// ws.send(event.data)
 };
 $('message').addEventListener('keypress', function(event) {
-	if (event.which == 13) {
+	if (event.which == 13 && !event.ctrlKey && !event.shiftKey) {
+
 		// $('form').submit()
 		console.log(this.value)
 		ws.send(JSON.stringify({
