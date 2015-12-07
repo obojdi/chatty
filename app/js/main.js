@@ -65,6 +65,8 @@ ws.onmessage = function(event) {
 		case 'userlist':
 			aside = document.getElementsByClassName('users')[0]
 			aside.innerHTML = '';
+			// console.log('users')
+			// console.log(message)
 			users = message.users
 			for (var a in users) {
 				var rnd = Math.floor(Math.random() * 10) + 100
@@ -77,6 +79,42 @@ ws.onmessage = function(event) {
 
 				user.innerHTML = user.innerHTML + users[a].login;
 				aside.appendChild(user)
+			}
+			break;
+		case 'history':
+			chat = $('chat')
+			chat.innerHTML = '';
+			console.log('history')
+			console.log(message.list)
+			for (var a in message.list) {
+
+			console.log(a)
+				console.log(message.list[a])
+
+
+				var date = new Date();
+
+				datevalues = {
+					year: date.getFullYear(),
+					month: date.getMonth() + 1,
+					day: (parseInt(date.getDate()) < 10 ? '0' + date.getDate() : date.getDate()),
+					hour: date.getHours(),
+					min: date.getMinutes(),
+					sec: date.getSeconds(),
+				};
+				var now = datevalues.hour + ':' + datevalues.min + ':' + datevalues.sec + ' ' + datevalues.day + '.' + datevalues.month + '.' + datevalues.year
+
+				var timestamp = document.createElement('span');
+
+				timestamp.className = "timestamp";
+				timestamp.innerHTML = now;
+
+				var msg = document.createElement('div');
+				msg.className = "message new-message";
+				msg.innerHTML = message.list[a].body;
+				msg.appendChild(timestamp);
+				// + ' ' + timestamp;
+				chat.appendChild(msg)
 			}
 			break;
 	}

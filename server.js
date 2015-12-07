@@ -11,6 +11,7 @@ var server = require('http').createServer(),
 	messages = [],
 	active_users = [];
 
+
 app.use(function(req, res) {
 
 	//res.send({
@@ -41,18 +42,38 @@ wss.on('connection', function connection(ws) {
 				var pos = users.map(function(i) {
 					return i.login
 				}).indexOf(user.login)
+				console.log(user.login)
+				console.log(pos)
 				if (pos < 0) {
 					//not found,add user
+
 					users.push(user);
+					active_users.push(user);
 					ws.send(JSON.stringify({
 						type: 'auth',
 						result: true
 					}));
+
+
+					ws.send(JSON.stringify({
+						type: 'userlist',
+						users: users
+					}));
+
+					ws.send(JSON.stringify({
+						type: 'history',
+						list: messages
+					}));
+
 					break;
 				} else {
 					//found, check password
 					if (users[pos].pass == user.pass) {
-						users.push(user);
+
+						//returning user, add to active if not yet
+						// users.push(user);
+						// active_users.push(user);
+
 						ws.send(JSON.stringify({
 							type: 'auth',
 							result: true
@@ -65,6 +86,14 @@ wss.on('connection', function connection(ws) {
 							type: 'userlist',
 							users: users
 						}));
+
+
+						ws.send(JSON.stringify({
+							type: 'history',
+							list: messages
+						}));
+
+
 						break;
 					} else {
 						ws.send(JSON.stringify({
@@ -87,7 +116,7 @@ wss.on('connection', function connection(ws) {
 				}))
 				break;
 			case 'log':
-			
+
 				ws.send(JSON.stringify({
 					type: 'message',
 					body: message.body
