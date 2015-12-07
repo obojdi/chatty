@@ -56,7 +56,7 @@ ws.onmessage = function(event) {
 
 			var msg = document.createElement('div');
 			msg.className = "message new-message";
-			msg.innerHTML = message.body;
+			msg.innerHTML = message.user + ': ' + message.body;
 			msg.appendChild(timestamp);
 			$('chat').appendChild(msg)
 			break;
